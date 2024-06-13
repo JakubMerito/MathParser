@@ -5,11 +5,15 @@ namespace MathParser
     internal class Tokenizer
     {
         string _input;
-        string? _currentTokenValue;
-        List<Token> _tokens;
         int _iterator = 0;
-        
+        string? _currentTokenValue;
         TokenType _currentTokenType;
+        private List<Token> _tokens;
+
+        public List<Token> GetTokens()
+        {
+            return _tokens;
+        }
 
         public Tokenizer(string equasion)
         {
@@ -72,6 +76,11 @@ namespace MathParser
             if (double.TryParse(_currentTokenValue, out double result) || _currentTokenValue == ".")
             {
                 _currentTokenType = TokenType.NUMBER;
+
+                if (_currentTokenValue == ".")
+                {
+                    _currentTokenValue = "0.";
+                }
             }
 
             Token token = new Token(_currentTokenValue, _currentTokenType);
