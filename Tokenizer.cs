@@ -4,78 +4,84 @@ namespace MathParser
 {
     internal class Tokenizer
     {
-        char currentChar;
-        List<Token> tokens;
-        int iterator = 0;
-        string input;
-        Token currentToken;
+        string _input;
+        string? _currentTokenValue;
+        List<Token> _tokens;
+        int _iterator = 0;
+        
+        TokenType _currentTokenType;
 
         public Tokenizer(string equasion)
         {
-            this.input = equasion;
-            tokens = new List<Token>(input.Length);
+            this._input = equasion;
+            _tokens = new List<Token>(_input.Length);
         }
 
         public void Tokenize()
         { 
-            while (currentChar != '\0' || iterator == 0)
+            while (_currentTokenValue != null || _iterator == 0)
             {
-                ResolveToken();
-                AddToTokenList();
                 GetNext();
+
+                if (_currentTokenValue == " ")
+                {
+                    continue;
+                }
+
+                Token token = ResolveToken();
+
+                if (token.Type == TokenType.NUMBER && _tokens.Count > 0 && _tokens.Last().Type == TokenType.NUMBER)
+                {
+                    _tokens.Last().Value += token.Value;
+                }
+                else
+                {
+                    AddToTokenList(token);
+                }
             }
         }
 
-        void GetNext()
+        private void GetNext()
         {
-            if (iterator < this.input.Length - 1)
+            if (_iterator < _input.Length)
             {
-                this.currentChar = this.input[iterator];
-                iterator++;
+                _currentTokenValue = _input[_iterator].ToString();
+                _iterator++;
             }
             else
             {
-                currentChar = '\0';
+                _currentTokenValue = null;
             }
         }
 
-        void ResolveToken()
+        private Token ResolveToken()
         {
-            switch (currentChar)
+            switch (_currentTokenValue)
             {
-                case '+':
-                    currentToken = Token.ADDITION;
-                    return;
-                case '-':
-                    currentToken = Token.SUBTRACTION;
-                    return;
-                case '\0':
-                    currentToken = Token.EOF;
-                    return;
+                case "+":
+                    _currentTokenType = TokenType.ADDITION;
+                    break;
+                case "-":
+                    _currentTokenType = TokenType.SUBTRACTION;
+                    break;
+                case null:
+                    _currentTokenType = TokenType.EOF;
+                    break;
             }
 
-            if (Char.IsDigit(currentChar))
+            if (double.TryParse(_currentTokenValue, out double result) || _currentTokenValue == ".")
             {
-                currentToken = Token.NUMBER;
-                return;
+                _currentTokenType = TokenType.NUMBER;
             }
+
+            Token token = new Token(_currentTokenValue, _currentTokenType);
+
+            return token;
         }
 
-        void AddToTokenList()
+        private void AddToTokenList(Token token)
         {
-            tokens.Add(currentToken);
-        }
-
-        public override string ToString()
-        {
-            StringBuilder sb = new StringBuilder();
-
-            foreach (Token token in tokens)
-            {
-                sb.Append(token.ToString());
-            }
-
-            return sb.ToString();
+            _tokens.Add(token);
         }
     }
 }

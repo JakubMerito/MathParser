@@ -7,7 +7,6 @@
             Tokenizer tokenizer = new Tokenizer(input);
 
             tokenizer.Tokenize();
-
         }
     }
 }

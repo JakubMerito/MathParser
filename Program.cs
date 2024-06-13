@@ -8,5 +8,6 @@ internal class Program
         string? input = Console.ReadLine();
 
         Parser parser = new Parser(input);
+
     }
 }
