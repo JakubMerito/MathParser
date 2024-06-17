@@ -76,11 +76,6 @@ namespace MathParser
             if (double.TryParse(_currentTokenValue, out double result) || _currentTokenValue == ".")
             {
                 _currentTokenType = TokenType.NUMBER;
-
-                if (_currentTokenValue == ".")
-                {
-                    _currentTokenValue = "0.";
-                }
             }
 
             Token token = new Token(_currentTokenValue, _currentTokenType);
