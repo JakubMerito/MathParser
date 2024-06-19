@@ -52,4 +52,32 @@
             return _leftNode.Eval() - _rightNode.Eval();
         }
     }
+
+    internal class ASTMultiplication : ASTOperation
+    {
+        public ASTMultiplication(AST leftNode, AST rightNode)
+        {
+            _leftNode = leftNode;
+            _rightNode = rightNode;
+        }
+
+        public override double Eval()
+        {
+            return _leftNode.Eval() * _rightNode.Eval();
+        }
+    }
+
+    internal class ASTDivision : ASTOperation
+    {
+        public ASTDivision(AST leftNode, AST rightNode)
+        {
+            _leftNode = leftNode;
+            _rightNode = rightNode;
+        }
+
+        public override double Eval()
+        {
+            return _leftNode.Eval() / _rightNode.Eval();
+        }
+    }
 }

@@ -25,6 +25,13 @@
         {
             foreach (Token token in tokens)
             {
+                if (token.Type == TokenType.EOF)
+                {
+                    break;
+                }
+
+
+
                 Console.WriteLine(token.ToString());
             }
         }
