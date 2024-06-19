@@ -5,6 +5,10 @@
         NUMBER,
         ADDITION,
         SUBTRACTION,
+        MULTIPLICATION,
+        DIVISION,
+        LBRACKET,
+        RBRACKET,
         EOF
     }
 }

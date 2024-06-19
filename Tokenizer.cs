@@ -68,6 +68,18 @@ namespace MathParser
                 case "-":
                     _currentTokenType = TokenType.SUBTRACTION;
                     break;
+                case "*":
+                    _currentTokenType = TokenType.MULTIPLICATION;
+                    break;
+                case "/":
+                    _currentTokenType = TokenType.DIVISION;
+                    break;
+                case "(":
+                    _currentTokenType = TokenType.LBRACKET;
+                    break;
+                case ")":
+                    _currentTokenType = TokenType.RBRACKET;
+                    break;
                 case null:
                     _currentTokenType = TokenType.EOF;
                     break;
