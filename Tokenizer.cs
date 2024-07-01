@@ -85,7 +85,7 @@ namespace MathParser
                     break;
             }
 
-            if (double.TryParse(_currentTokenValue, out double result) || _currentTokenValue == ".")
+            if (double.TryParse(_currentTokenValue, out double result) || _currentTokenValue == ",")
             {
                 _currentTokenType = TokenType.NUMBER;
             }

@@ -77,6 +77,11 @@
 
         public override double Eval()
         {
+            if (_rightNode.Eval() == 0)
+            {
+                throw new DivideByZeroException("Nie można dzielić przez 0!");
+            }
+
             return _leftNode.Eval() / _rightNode.Eval();
         }
     }

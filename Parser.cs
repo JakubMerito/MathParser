@@ -23,7 +23,15 @@
             }
             
             AST ast = ParseAdditionSubtraction();
-            Console.WriteLine(ast.Eval());
+
+            try
+            {
+                Console.WriteLine(ast.Eval());
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
 
         private List<Token> GetTokens()
@@ -78,7 +86,7 @@
                 {
                     NextToken();
                     AST rightNode = ParseBracketsNumber();
-                    result = new ASTDivision(result, rightNode);
+                        result = new ASTDivision(result, rightNode);
                 }
             }
             return result;
